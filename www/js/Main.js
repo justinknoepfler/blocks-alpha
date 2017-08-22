@@ -741,12 +741,10 @@ function CubeMatrix(config) {
     }
 
     const now = new Date().getTime();
-    const colOffset =
+    const colOffset = Array.from({length: width}, (v, i) => Math.floor(Math.random() * 4));
     prunedMatrix.forEach(function (row) {
-        rowOffset = Math.floor(Math.random() * 4);
-        row.forEach((cube) => (cube.fallHeight = Math.floor(height + rowOffset)))
+        Array.from({length: width}, (v, i) => i).forEach((i) => row[i].fallHeight = height + colOffset[i]);
     });
-    //prunedMatrix.forEach((row) => (row.forEach((cube) => (cube.fallHeight = height))));
     prunedMatrix.forEach((row) => (row.forEach((cube) => (cube.fallStartMillis = now))));
 
     return prunedMatrix;
